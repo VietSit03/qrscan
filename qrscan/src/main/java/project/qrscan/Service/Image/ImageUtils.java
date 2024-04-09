@@ -1,4 +1,4 @@
-package project.qrscan.Service;
+package project.qrscan.Service.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
