@@ -12,6 +12,7 @@ public class MilkController {
     @Autowired
     private MilkService milkService;
 
+    @PostMapping
     public ResponseEntity<?> addMilk(@RequestBody Milk milk) {
         return milkService.create(milk);
     }

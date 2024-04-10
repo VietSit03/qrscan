@@ -29,4 +29,14 @@ public class HistoryScanServiceImp implements HistoryScanService{
         }
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }
+
+    @Override
+    public ResponseEntity<Map<Long, Integer>> getTimesScanProductInMonth(String year_month) {
+        ArrayList<Long> listIdProduct = productRepository.getListIdProduct();
+        Map<Long, Integer> map = new HashMap<>();
+        for (Long product_id:listIdProduct) {
+            map.put(product_id, historyScanRepository.getTimesScanProductInMonth(year_month, product_id));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(map);
+    }
 }

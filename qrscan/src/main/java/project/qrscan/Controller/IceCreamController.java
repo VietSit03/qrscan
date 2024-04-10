@@ -15,6 +15,7 @@ public class IceCreamController {
     @Autowired
     private IceCreamService iceCreamService;
 
+    @PostMapping
     public ResponseEntity<?> addIceCream(@RequestBody IceCream iceCream) {
         return iceCreamService.create(iceCream);
     }
