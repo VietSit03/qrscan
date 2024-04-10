@@ -6,17 +6,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.qrscan.Entitiy.Snack;
 import project.qrscan.Repository.SnackRepository;
+import project.qrscan.Service.T.SnackService;
 
 @RestController
 @RequestMapping("/api/v1/snacks")
 public class SnackController {
     @Autowired
-    private SnackRepository snackRepository;
+    private SnackService snackService;
 
     @PostMapping()
     public ResponseEntity<?> addSnack(@RequestBody Snack snack) {
-        snackRepository.save(snack);
-        return ResponseEntity.status(HttpStatus.CREATED).body(snack);
+        return snackService.create(snack);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateSnack(@PathVariable Long id, @RequestBody Snack snack) {
+        return snackService.update(id, snack);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteSnack(@PathVariable Long id) {
+        return snackService.delete(id);
+    }
 }

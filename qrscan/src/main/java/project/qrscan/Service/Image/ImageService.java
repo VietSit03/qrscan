@@ -7,5 +7,7 @@ import java.io.IOException;
 
 public interface ImageService {
     public abstract ResponseEntity<?> uploadImage(MultipartFile file, Long productId) throws IOException;
-    public abstract ResponseEntity<?> downloadImage(String filename);
+    public abstract ResponseEntity<?> downloadImageByName(String filename);
+    public abstract ResponseEntity<?> downloadImageByProductId(Long product_id);
+    public abstract ResponseEntity<?> deleteImage(Long product_id);
 }

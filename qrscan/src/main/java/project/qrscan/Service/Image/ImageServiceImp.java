@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import project.qrscan.Entitiy.ImageProduct;
 import project.qrscan.Entitiy.Product;
 import project.qrscan.Repository.ImageRepository;
 import project.qrscan.Repository.ProductRepository;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,22 +27,31 @@ public class ImageServiceImp implements ImageService{
 
     @Override
     public ResponseEntity<?> uploadImage(MultipartFile file, Long productId) throws IOException {
-        Product product = new Product();
-        if (productRepository.findById(productId).isPresent()) {
-            product = productRepository.findById(productId).get();
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isEmpty()) {
+            throw new RuntimeException("Not found product id: " + productId);
         }
-        else {
-            throw new RuntimeException("Not found product");
+        Optional<ImageProduct> imageProduct = imageRepository.findByProductId(productId);
+        //Update image
+        if (imageProduct.isPresent()) {
+            ImageProduct iP = imageProduct.get();
+            iP.setName(file.getOriginalFilename());
+            iP.setType(file.getContentType());
+            iP.setImageData(ImageUtils.compressImage(file.getBytes()));
+            iP.setProduct(product.get());
+            imageRepository.save(iP);
+            return ResponseEntity.status(HttpStatus.OK).body("Update successful: " + file.getOriginalFilename());
         }
-        ImageProduct imageProduct = imageRepository.save(
+        //Upload image
+        imageRepository.save(
                 ImageProduct.builder().name(file.getOriginalFilename()).type(file.getContentType())
-                        .imageData(ImageUtils.compressImage(file.getBytes())).product(product).build()
+                        .imageData(ImageUtils.compressImage(file.getBytes())).product(product.get()).build()
         );
         return ResponseEntity.status(HttpStatus.OK).body("Upload successful: " + file.getOriginalFilename());
     }
 
     @Override
-    public ResponseEntity<?> downloadImage(String filename) {
+    public ResponseEntity<?> downloadImageByName(String filename) {
         Optional<ImageProduct> imageProduct = imageRepository.findByName(filename);
         if (imageProduct.isPresent()) {
             byte[] images = ImageUtils.decompressImage(imageProduct.get().getImageData());
@@ -47,6 +59,29 @@ public class ImageServiceImp implements ImageService{
                     .contentType(MediaType.valueOf("image/png"))
                     .body(images);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found image");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found image name: " + filename);
+    }
+
+    @Override
+    public ResponseEntity<?> downloadImageByProductId(Long product_id) {
+        Optional<ImageProduct> imageProduct = imageRepository.findByProductId(product_id);
+        if (imageProduct.isPresent()) {
+            byte[] images = ImageUtils.decompressImage(imageProduct.get().getImageData());
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.valueOf("image/png"))
+                    .body(images);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found image product id: " + product_id);
+    }
+
+    @Transactional
+    @Override
+    public ResponseEntity<?> deleteImage(Long product_id) {
+        Optional<ImageProduct> image = imageRepository.findByProductId(product_id);
+        if (image.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("Not found image product id: " + product_id));
+        }
+        imageRepository.deleteByProductId(product_id);
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully images product id: " + product_id);
     }
 }

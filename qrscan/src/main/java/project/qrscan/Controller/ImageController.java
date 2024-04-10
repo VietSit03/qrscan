@@ -19,8 +19,13 @@ public class ImageController {
         return imageService.uploadImage(file, productId);
     }
 
-    @GetMapping("/{filename}")
-    public ResponseEntity<?> dowloadImage(@PathVariable String filename){
-        return imageService.downloadImage(filename);
+    @GetMapping("/name/{filename}")
+    public ResponseEntity<?> downloadImageByName(@PathVariable String filename){
+        return imageService.downloadImageByName(filename);
+    }
+
+    @GetMapping("/{product_id}")
+    public ResponseEntity<?> downloadImageByProductId(@PathVariable Long product_id) {
+        return imageService.downloadImageByProductId(product_id);
     }
 }

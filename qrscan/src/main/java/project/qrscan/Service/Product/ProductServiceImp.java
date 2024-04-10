@@ -29,25 +29,25 @@ public class ProductServiceImp implements ProductService{
     public ResponseEntity<?> findById(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
-            switch (product.get().getType()) {
-                case "Beverage" -> {
+            switch (product.get().getType().trim().toLowerCase()) {
+                case "beverage" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(beverageRepository.findById(id));
                 }
-                case "Dry Food" -> {
+                case "dry food" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(dryFoodRepository.findById(id));
                 }
-                case "Ice Cream" -> {
+                case "ice cream" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(iceCreamRepository.findById(id));
                 }
-                case "Milk" -> {
+                case "milk" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(milkRepository.findById(id));
                 }
-                case "Snack" -> {
+                case "snack" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(snackRepository.findById(id));
                 }
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found product");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found product id: "+id);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ProductServiceImp implements ProductService{
                 return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
             }
         }
-        throw new RuntimeException("Error");
+        throw new RuntimeException("Not found type product");
     }
 
 }

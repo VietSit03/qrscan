@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "milk")
 public class Milk extends Product{
     @Column(name = "unit", nullable = false)

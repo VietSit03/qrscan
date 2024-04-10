@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "dry_food")
 public class DryFood extends Product{
     @Column(name = "pack", nullable = false)
