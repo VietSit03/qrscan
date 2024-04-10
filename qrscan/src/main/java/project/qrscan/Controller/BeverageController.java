@@ -24,8 +24,4 @@ public class BeverageController {
         return beverageService.update(id, beverage);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBeverage(@PathVariable Long id) {
-        return beverageService.delete(id);
-    }
 }

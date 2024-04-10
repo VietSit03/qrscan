@@ -16,6 +16,6 @@ public class DryFood extends Product{
     @Column(name = "pack", nullable = false)
     private String pack;
 
-    @Column(name = "flavor", nullable = false)
-    private String flavor;
+    @Column(name = "weight", nullable = false)
+    private String weight;
 }

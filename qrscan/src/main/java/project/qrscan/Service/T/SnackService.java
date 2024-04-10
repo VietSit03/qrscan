@@ -39,14 +39,4 @@ public class SnackService implements ProductService<Snack> {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @Override
-    public ResponseEntity<Snack> delete(Long id) {
-        Optional<Snack> snack = snackRepository.findById(id);
-        if (snack.isEmpty()) {
-            throw new RuntimeException("Not found snack id: " + id);
-        }
-        imageService.deleteImage(id);
-        snackRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(snack.get());
-    }
 }

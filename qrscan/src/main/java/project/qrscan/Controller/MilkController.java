@@ -21,8 +21,4 @@ public class MilkController {
         return milkService.update(id, milk);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMilk(@PathVariable Long id) {
-        return milkService.delete(id);
-    }
 }

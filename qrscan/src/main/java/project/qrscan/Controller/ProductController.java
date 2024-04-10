@@ -2,10 +2,7 @@ package project.qrscan.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.qrscan.Service.Product.ProductServiceImp;
 
 @RestController
@@ -22,5 +19,10 @@ public class ProductController {
     @GetMapping("/type/{type}")
     public ResponseEntity<?> listProductsByType(@PathVariable String type) {
         return productServiceImp.listByType(type);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        return productServiceImp.deleteProduct(id);
     }
 }

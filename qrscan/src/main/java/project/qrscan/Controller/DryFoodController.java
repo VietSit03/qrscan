@@ -25,8 +25,4 @@ public class DryFoodController {
         return dryFoodService.update(id, dryFood);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDryFood(@PathVariable Long id) {
-        return dryFoodService.delete(id);
-    }
 }

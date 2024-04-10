@@ -30,6 +30,9 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
+    @Column(name = "flavor", nullable = false)
+    private String flavor;
+
     @Column(name = "ingredient", nullable = false)
     private String ingredient;
 

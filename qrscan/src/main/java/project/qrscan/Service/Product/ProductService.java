@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProductService {
     public abstract ResponseEntity<?> findById(Long id);
     public abstract ResponseEntity<List<?>> listByType(String type);
+    public abstract ResponseEntity<?> deleteProduct(Long id);
 }

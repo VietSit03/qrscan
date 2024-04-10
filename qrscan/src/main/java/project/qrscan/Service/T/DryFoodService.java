@@ -39,14 +39,4 @@ public class DryFoodService implements ProductService<DryFood> {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @Override
-    public ResponseEntity<DryFood> delete(Long id) {
-        Optional<DryFood> dryFood = dryFoodRepository.findById(id);
-        if (dryFood.isEmpty()) {
-            throw new RuntimeException("Not found dry food id: " + id);
-        }
-        imageService.deleteImage(id);
-        dryFoodRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(dryFood.get());
-    }
 }

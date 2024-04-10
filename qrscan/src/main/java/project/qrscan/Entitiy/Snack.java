@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "snack")
 public class Snack extends Product{
-    @Column(name = "flavor", nullable = false)
-    private String flavor;
+    @Column(name = "weight", nullable = false)
+    private String weight;
 }

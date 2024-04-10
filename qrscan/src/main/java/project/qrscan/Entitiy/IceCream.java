@@ -16,6 +16,6 @@ public class IceCream extends Product{
     @Column(name = "unit", nullable = false)
     private String unit;
 
-    @Column(name = "flavor", nullable = false)
-    private String flavor;
+    @Column(name = "weight", nullable = false)
+    private String weight;
 }

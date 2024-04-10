@@ -24,8 +24,4 @@ public class IceCreamController {
         return iceCreamService.update(id, iceCream);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteIceCream(@PathVariable Long id) {
-        return iceCreamService.delete(id);
-    }
 }

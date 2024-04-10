@@ -74,7 +74,6 @@ public class ImageServiceImp implements ImageService{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found image product id: " + product_id);
     }
 
-    @Transactional
     @Override
     public ResponseEntity<?> deleteImage(Long product_id) {
         Optional<ImageProduct> image = imageRepository.findByProductId(product_id);

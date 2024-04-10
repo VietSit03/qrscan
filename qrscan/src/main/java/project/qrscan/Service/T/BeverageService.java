@@ -39,15 +39,4 @@ public class BeverageService implements ProductService<Beverage> {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @Override
-    public ResponseEntity<Beverage> delete(Long id) {
-        Optional<Beverage> beverage = beverageRepository.findById(id);
-        if (beverage.isEmpty()) {
-            throw new RuntimeException("Not found beverage id: " + id);
-        }
-        imageService.deleteImage(id);
-        beverageRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(beverage.get());
-    }
-
 }

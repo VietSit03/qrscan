@@ -39,14 +39,4 @@ public class IceCreamService implements ProductService<IceCream> {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @Override
-    public ResponseEntity<IceCream> delete(Long id) {
-        Optional<IceCream> iceCream = iceCreamRepository.findById(id);
-        if (iceCream.isEmpty()) {
-            throw new RuntimeException("Not found ice cream id: " + id);
-        }
-        imageService.deleteImage(id);
-        iceCreamRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(iceCream.get());
-    }
 }

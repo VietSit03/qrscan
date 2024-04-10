@@ -16,6 +16,6 @@ public class Milk extends Product{
     @Column(name = "unit", nullable = false)
     private String unit;
 
-    @Column(name = "flavor", nullable = false)
-    private String flavor;
+    @Column(name = "capacity", nullable = false)
+    private String capacity;
 }

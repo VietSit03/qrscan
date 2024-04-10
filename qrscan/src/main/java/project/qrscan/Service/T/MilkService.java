@@ -39,14 +39,4 @@ public class MilkService implements ProductService<Milk>{
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @Override
-    public ResponseEntity<Milk> delete(Long id) {
-        Optional<Milk> milk = milkRepository.findById(id);
-        if (milk.isEmpty()) {
-            throw new RuntimeException("Not found milk id: " + id);
-        }
-        imageService.deleteImage(id);
-        milkRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(milk.get());
-    }
 }
