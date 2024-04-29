@@ -16,9 +16,14 @@ public class ProductController {
         return productServiceImp.findById(id);
     }
 
+    @GetMapping("/types")
+    public ResponseEntity<?> listTypesProduct() {
+        return productServiceImp.listTypesProduct();
+    }
+
     @GetMapping("/type/{type}")
     public ResponseEntity<?> listProductsByType(@PathVariable String type) {
-        return productServiceImp.listByType(type);
+        return productServiceImp.listProductsByType(type);
     }
 
     @DeleteMapping("/{id}")

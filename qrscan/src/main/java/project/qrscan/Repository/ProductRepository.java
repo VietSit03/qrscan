@@ -7,9 +7,13 @@ import org.springframework.stereotype.Repository;
 import project.qrscan.Entitiy.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT id FROM product", nativeQuery = true)
-    ArrayList<Long> getListIdProduct();
+    List<Long> getListIdProduct();
+
+    @Query(value = "SELECT DISTINCT type FROM product", nativeQuery = true)
+    List<String> listTypesProduct();
 }

@@ -32,11 +32,32 @@ public class ProductServiceImp implements ProductService{
     @Autowired
     private HistoryScanRepository historyScanRepository;
 
+    private String formatType(String typeProduct) {
+        switch (typeProduct) {
+            case "nước giải khát" -> {
+                return "beverage";
+            }
+            case "thực phẩm khô" -> {
+                return "dry food";
+            }
+            case "kem" -> {
+                return "ice cream";
+            }
+            case "sữa" -> {
+                return "milk";
+            }
+            case "đồ ăn vặt" -> {
+                return "snack";
+            }
+        }
+        return typeProduct.trim().toLowerCase();
+    }
+
     @Override
     public ResponseEntity<?> findById(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
-            switch (product.get().getType().trim().toLowerCase()) {
+            switch (formatType(product.get().getType().trim().toLowerCase())) {
                 case "beverage" -> {
                     return ResponseEntity.status(HttpStatus.OK).body(beverageRepository.findById(id));
                 }
@@ -58,15 +79,15 @@ public class ProductServiceImp implements ProductService{
     }
 
     @Override
-    public ResponseEntity<List<?>> listByType(String type) {
+    public ResponseEntity<List<?>> listProductsByType(String type) {
         switch (type) {
             case "beverage" -> {
                 return ResponseEntity.status(HttpStatus.OK).body(beverageRepository.findAll());
             }
-            case "dryfood" -> {
+            case "dry_food" -> {
                 return ResponseEntity.status(HttpStatus.OK).body(dryFoodRepository.findAll());
             }
-            case "icecream" -> {
+            case "ice_cream" -> {
                 return ResponseEntity.status(HttpStatus.OK).body(iceCreamRepository.findAll());
             }
             case "milk" -> {
@@ -86,7 +107,7 @@ public class ProductServiceImp implements ProductService{
     public ResponseEntity<?> deleteProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
-            switch (product.get().getType().trim().toLowerCase()) {
+            switch (formatType(product.get().getType().trim().toLowerCase())) {
                 case "beverage" -> {
                     Optional<Beverage> beverage = beverageRepository.findById(id);
                     if (beverage.isEmpty()) {
@@ -140,6 +161,11 @@ public class ProductServiceImp implements ProductService{
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found product id: "+id);
+    }
+
+    @Override
+    public ResponseEntity<?> listTypesProduct() {
+        return ResponseEntity.status(HttpStatus.OK).body(productRepository.listTypesProduct());
     }
 
 }

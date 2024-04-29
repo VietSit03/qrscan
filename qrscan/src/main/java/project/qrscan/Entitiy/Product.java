@@ -33,7 +33,8 @@ public class Product {
     @Column(name = "flavor", nullable = false)
     private String flavor;
 
-    @Column(name = "ingredient", nullable = false)
+
+    @Column(name = "ingredient", nullable = false, length = 1023)
     private String ingredient;
 
     @Column(name = "description")

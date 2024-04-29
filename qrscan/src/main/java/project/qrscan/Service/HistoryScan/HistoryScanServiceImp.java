@@ -12,10 +12,7 @@ import project.qrscan.Repository.ProductRepository;
 import project.qrscan.Service.Product.ProductService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HistoryScanServiceImp implements HistoryScanService{
@@ -29,7 +26,7 @@ public class HistoryScanServiceImp implements HistoryScanService{
 
     @Override
     public ResponseEntity<Map<Long, Integer>> getTimesScanProduct() {
-        ArrayList<Long> listIdProduct = productRepository.getListIdProduct();
+        List<Long> listIdProduct = productRepository.getListIdProduct();
         Map<Long, Integer> map = new HashMap<>();
         for (Long product_id:listIdProduct) {
             map.put(product_id, historyScanRepository.getTimesScanProduct(product_id));
@@ -39,7 +36,7 @@ public class HistoryScanServiceImp implements HistoryScanService{
 
     @Override
     public ResponseEntity<Map<Long, Integer>> getTimesScanProductInMonth(String year_month) {
-        ArrayList<Long> listIdProduct = productRepository.getListIdProduct();
+        List<Long> listIdProduct = productRepository.getListIdProduct();
         Map<Long, Integer> map = new HashMap<>();
         for (Long product_id:listIdProduct) {
             map.put(product_id, historyScanRepository.getTimesScanProductInMonth(year_month, product_id));
@@ -49,7 +46,7 @@ public class HistoryScanServiceImp implements HistoryScanService{
 
     @Override
     public ResponseEntity<Map<Long, Integer>> getTimesScanProductInYear(String year) {
-        ArrayList<Long> listIdProduct = productRepository.getListIdProduct();
+        List<Long> listIdProduct = productRepository.getListIdProduct();
         Map<Long, Integer> map = new HashMap<>();
         for (Long product_id:listIdProduct) {
             map.put(product_id, historyScanRepository.getTimesScanProductInYear(year, product_id));
