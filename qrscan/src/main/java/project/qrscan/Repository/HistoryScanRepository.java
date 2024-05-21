@@ -13,11 +13,11 @@ public interface HistoryScanRepository extends JpaRepository<HistoryScan, Long> 
     @Query(value = "SELECT COUNT(product_id) FROM history_scan WHERE product_id = :productId ", nativeQuery = true)
     Integer getTimesScanProduct(@Param("productId") Long productId);
 
-    @Query(value = "SELECT COUNT(product_id) FROM history_scan WHERE DATE_FORMAT(time_scan, '%Y-%m') = :yearMonth AND product_id = :productId ", nativeQuery = true)
-    Integer getTimesScanProductInMonth(@Param("yearMonth") String yearMonth, @Param("productId") Long productId);
+    @Query(value = "SELECT COUNT(product_id) FROM history_scan WHERE DATE_FORMAT(time_scan, '%Y') = :year AND DATE_FORMAT(time_scan, '%m') = :month AND product_id = :productId ", nativeQuery = true)
+    Integer getTimesScanProductInMonth(@Param("year") Integer year, @Param("month") Integer month, @Param("productId") Long productId);
 
     @Query(value = "SELECT COUNT(product_id) FROM history_scan WHERE DATE_FORMAT(time_scan, '%Y') = :year AND product_id = :productId ", nativeQuery = true)
-    Integer getTimesScanProductInYear(@Param("year") String year, @Param("productId") Long productId);
+    Integer getTimesScanProductInYear(@Param("year") Integer year, @Param("productId") Long productId);
 
     @Transactional
     @Modifying

@@ -68,7 +68,7 @@ public class ImageServiceImp implements ImageService{
         if (imageProduct.isPresent()) {
             byte[] images = ImageUtils.decompressImage(imageProduct.get().getImageData());
             return ResponseEntity.status(HttpStatus.OK)
-                    .contentType(MediaType.valueOf("image/png"))
+//                    .contentType(MediaType.valueOf("image/png"))
                     .body(images);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found image product id: " + product_id);

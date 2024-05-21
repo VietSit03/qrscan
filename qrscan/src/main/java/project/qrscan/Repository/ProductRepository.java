@@ -16,4 +16,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT DISTINCT type FROM product", nativeQuery = true)
     List<String> listTypesProduct();
+
+    @Query(value = "SELECT id FROM product\n" +
+            "ORDER BY id DESC\n" +
+            "LIMIT 1;", nativeQuery = true)
+    Long getNextId();
 }

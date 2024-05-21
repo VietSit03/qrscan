@@ -16,7 +16,7 @@ public class QrscanApplication {
 
 	public static void main(String[] args) throws IOException {
 		ConfigurableApplicationContext context = SpringApplication.run(QrscanApplication.class, args);
-		addImageProduct(context);
+//		addImageProduct(context);
 	}
 
 	public static void addImageProduct(ConfigurableApplicationContext context) throws IOException {

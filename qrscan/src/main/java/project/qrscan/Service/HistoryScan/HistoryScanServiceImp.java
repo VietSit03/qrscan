@@ -35,17 +35,17 @@ public class HistoryScanServiceImp implements HistoryScanService{
     }
 
     @Override
-    public ResponseEntity<Map<Long, Integer>> getTimesScanProductInMonth(String year_month) {
+    public ResponseEntity<Map<Long, Integer>> getTimesScanProductInMonth(Integer year, Integer month) {
         List<Long> listIdProduct = productRepository.getListIdProduct();
         Map<Long, Integer> map = new HashMap<>();
         for (Long product_id:listIdProduct) {
-            map.put(product_id, historyScanRepository.getTimesScanProductInMonth(year_month, product_id));
+            map.put(product_id, historyScanRepository.getTimesScanProductInMonth(year, month, product_id));
         }
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }
 
     @Override
-    public ResponseEntity<Map<Long, Integer>> getTimesScanProductInYear(String year) {
+    public ResponseEntity<Map<Long, Integer>> getTimesScanProductInYear(Integer year) {
         List<Long> listIdProduct = productRepository.getListIdProduct();
         Map<Long, Integer> map = new HashMap<>();
         for (Long product_id:listIdProduct) {
@@ -61,6 +61,6 @@ public class HistoryScanServiceImp implements HistoryScanService{
             throw new RuntimeException("Not found product id: " + id);
         }
         historyScanRepository.save(HistoryScan.builder().timeScan(LocalDateTime.now()).product(product.get()).build());
-        return ResponseEntity.status(HttpStatus.OK).body(productService.findById(id).getBody());
+        return ResponseEntity.status(HttpStatus.OK).body(id);
     }
 }

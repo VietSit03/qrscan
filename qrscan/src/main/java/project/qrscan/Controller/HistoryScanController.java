@@ -18,13 +18,14 @@ public class HistoryScanController {
         return historyScanServiceImp.getTimesScanProduct();
     }
 
-    @GetMapping("/month/{year_month}")
-    public ResponseEntity<?> getTimesScanProductInMonth(@PathVariable String year_month) {
-        return historyScanServiceImp.getTimesScanProductInMonth(year_month);
+    @GetMapping("/month")
+    public ResponseEntity<?> getTimesScanProductInMonth(@RequestParam(name = "year") Integer year,
+                                                        @RequestParam(name = "month") Integer month) {
+        return historyScanServiceImp.getTimesScanProductInMonth(year, month);
     }
 
-    @GetMapping("/year/{year}")
-    public ResponseEntity<?> getTimesScanProductInYear(@PathVariable String year) {
+    @GetMapping("/year")
+    public ResponseEntity<?> getTimesScanProductInYear(@RequestParam(name = "year") Integer year) {
         return historyScanServiceImp.getTimesScanProductInYear(year);
     }
 

@@ -107,8 +107,8 @@ public class ProductServiceImp implements ProductService{
     public ResponseEntity<?> deleteProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
-            switch (formatType(product.get().getType().trim().toLowerCase())) {
-                case "beverage" -> {
+            switch (product.get().getType().trim().toLowerCase()) {
+                case "nước giải khát" -> {
                     Optional<Beverage> beverage = beverageRepository.findById(id);
                     if (beverage.isEmpty()) {
                         throw new RuntimeException("Not found beverage id: " + id);
@@ -118,7 +118,7 @@ public class ProductServiceImp implements ProductService{
                     beverageRepository.deleteById(id);
                     return ResponseEntity.status(HttpStatus.OK).body(beverage);
                 }
-                case "dry food" -> {
+                case "thực phẩm khô" -> {
                     Optional<DryFood> dryFood = dryFoodRepository.findById(id);
                     if (dryFood.isEmpty()) {
                         throw new RuntimeException("Not found dry food id: " + id);
@@ -128,7 +128,7 @@ public class ProductServiceImp implements ProductService{
                     dryFoodRepository.deleteById(id);
                     return ResponseEntity.status(HttpStatus.OK).body(dryFood);
                 }
-                case "ice cream" -> {
+                case "kem" -> {
                     Optional<IceCream> iceCream = iceCreamRepository.findById(id);
                     if (iceCream.isEmpty()) {
                         throw new RuntimeException("Not found ice cream id: " + id);
@@ -138,7 +138,7 @@ public class ProductServiceImp implements ProductService{
                     iceCreamRepository.deleteById(id);
                     return ResponseEntity.status(HttpStatus.OK).body(iceCream);
                 }
-                case "milk" -> {
+                case "sữa" -> {
                     Optional<Milk> milk = milkRepository.findById(id);
                     if (milk.isEmpty()) {
                         throw new RuntimeException("Not found milk id: " + id);
@@ -148,7 +148,7 @@ public class ProductServiceImp implements ProductService{
                     milkRepository.deleteById(id);
                     return ResponseEntity.status(HttpStatus.OK).body(milk);
                 }
-                case "snack" -> {
+                case "đồ ăn vặt" -> {
                     Optional<Snack> snack = snackRepository.findById(id);
                     if (snack.isEmpty()) {
                         throw new RuntimeException("Not found snack id: " + id);
